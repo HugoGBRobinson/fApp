@@ -32,16 +32,32 @@ public class puzzleGenerator implements generator{
         return numQueue;
     }
 
+    private boolean checkIfBetweenNumbers(int position){
+        for (int i = 0; i < (puzzleSize * puzzleSize) + (puzzleSize * (puzzleSize-1)- puzzleSize); i = i + (puzzleSize + (puzzleSize - 1))) {
+            for (int j = 0; j < puzzleSize - 1; j++) {
+                System.out.println("Checking position" + " " + i + " " + j);
+                if (position == (i + j)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public Queue<String> opGen() {
         String[] ops = new String[((puzzleSize * puzzleSize) + (puzzleSize * (puzzleSize-1)- puzzleSize))];
-        String[] avalibleOps = {"\u02C2","\u02C3","\u02C4","\u02C5"};
+        String[] avalibleOpsFistLine = {"\u02C2","\u02C3"};
+        String[] avalibleOpsSecondLine = {"\u02C4","\u02C5"};
         int randPosition;
         for (int i = 0; i < 3; i++) {
             randPosition = new Random().nextInt((ops.length - 1) + 1);
-            if (ops[randPosition] == null){
-                ops[randPosition] = avalibleOps[new Random().nextInt(avalibleOps.length)];
-            }else{
+            if (ops[randPosition] == null && checkIfBetweenNumbers(randPosition) == true){
+                ops[randPosition] = avalibleOpsFistLine[new Random().nextInt(avalibleOpsFistLine.length)];
+            }else if(ops[randPosition] == null && checkIfBetweenNumbers(randPosition) == false){
+                ops[randPosition] = avalibleOpsSecondLine[new Random().nextInt(avalibleOpsSecondLine.length)];
+            }
+            else{
                 i = i - 1;
             }
 

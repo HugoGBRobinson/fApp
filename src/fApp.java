@@ -9,8 +9,20 @@ public class fApp {
 
     public static void main(String[] args){
 
-        for (String str: new puzzleGenerator().puzzleGen()) {
-            System.out.print(str + " ");
+        String[] puzzle = new puzzleGenerator().puzzleGen();
+
+        int count = 0;
+        for (int i = 0; i < puzzleSize; i++) {
+            for (int j = 0; j < puzzleSize + (puzzleSize - 1); j++) {
+                System.out.print(puzzle[count] + " ");
+                count+=1;
+            }
+            System.out.println();
+            for (int j = 0; j < puzzleSize; j++) {
+                System.out.print(puzzle[count]+ " ");
+                count+=1;
+            }
+            System.out.println();
         }
     }
 }
